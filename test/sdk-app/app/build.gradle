@@ -6,7 +6,6 @@ clean {
     delete "${projectDir.absolutePath}/.cxx"
 }
 
-
 android {
     compileSdk 31
 

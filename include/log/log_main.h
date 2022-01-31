@@ -41,10 +41,10 @@ extern "C" {
 // still see compile errors and warnings.
 #define ALOGV(...)                                     \
   do {                                                 \
-    if (0) {                                           \
+    if (false) {                                       \
       ALOG(ANDROID_LOG_VERBOSE, LOG_TAG, __VA_ARGS__); \
     }                                                  \
-  } while (0)
+  } while (false)
 #else
 #define ALOGV(...) ALOG(ANDROID_LOG_VERBOSE, LOG_TAG, __VA_ARGS__)
 #endif
