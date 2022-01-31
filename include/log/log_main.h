@@ -37,8 +37,8 @@ extern "C" {
 
 
 #if LOG_NDEBUG
-// Do not fully stripped the log statement via the preprocessor from the code,
-// to still see compile errors and warnings.
+// Do not fully strip the log statement via the preprocessor from the code, to
+// still see compile errors and warnings.
 #define ALOGV(...)                                     \
   do {                                                 \
     if (0) {                                           \
