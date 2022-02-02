@@ -12,7 +12,8 @@ add_executable(${PROJECT_NAME}
     src/test_c.c
     src/test_cpp.cpp
     src/test_fatal.cpp
-    src/test_fatal_with_message.cpp
+    src/test_fatal_if.cpp
+    src/test_fatal_if_with_message.cpp
     src/test_without_logtag.cpp
     src/test_alogv.cpp
 )

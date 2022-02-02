@@ -79,6 +79,11 @@ extern "C" {
 
 #endif
 
+#ifndef LOG_ALWAYS_FATAL
+#define LOG_ALWAYS_FATAL(...) __android_log_assert(NULL, LOG_TAG, ##__VA_ARGS__)
+#endif
+
+
 #if defined(__cplusplus)
 }
 #endif

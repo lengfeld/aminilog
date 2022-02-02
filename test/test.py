@@ -74,16 +74,23 @@ D/test_alogv: debug
 V/test_alogv: verbose
 """),
 
-    ("Testing fatal macro", ["fatal"], 134,
+    ("Testing LOG_ALWAYS_FATAL macro", ["fatal"], 134,
 """--------- beginning of main
-F/test_fatal: Assertion failed: 2 == 2
+F/test_fatal: message d = 42
 --------- beginning of crash
 F/libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid XXXX (prog), pid XXXX (prog)
 """),
 
-    ("Testing fatal macro with message", ["fatal_with_message"], 134,
+    ("Testing LOG_ALWAYS_FATAL_IF macro", ["fatal_if"], 134,
 """--------- beginning of main
-F/test_fatal: condition is true
+F/test_fatal_if: Assertion failed: 2 == 2
+--------- beginning of crash
+F/libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid XXXX (prog), pid XXXX (prog)
+"""),
+
+    ("Testing LOG_ALWAYS_FATAL_IF macro with message", ["fatal_if_with_message"], 134,
+"""--------- beginning of main
+F/test_fatal_if: condition is true
 --------- beginning of crash
 F/libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid XXXX (prog), pid XXXX (prog)
 """),
