@@ -58,7 +58,8 @@ After that the code in that file can use the logging macros:
 To add an assert, you can use
 
     LOG_ALWAYS_FATAL_IF(pointer == NULL);
-    LOG_ALWAYS_FATAL_IF(i >= 20, "array index out of range");
+    LOG_ALWAYS_FATAL_IF(i >= 20, "array index out of range: i = %d", i);
+    LOG_ALWAYS_FATAL("This code should never be reached");
 
 For more examples, have a look the AOSP code itself or at the testcases in
 [test/src/](test/src/). All available macros are documented in the AOSP liblog's
