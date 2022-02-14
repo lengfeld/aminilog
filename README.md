@@ -5,7 +5,7 @@ for NDK projects. The macros are identical to the macros used in the AOSP.
 
 If you want to start writing C/C++ code in an Android app that eventually
 becomes AOSP code or if you are working primarily in the AOSP codebase and want
-the same macros in your new NDK based C++ code or if you need do not want to
+the same macros in your new NDK based C++ project or if you do not want to
 write macros for yourself, this library is for you.
 
 The goal is to have 100% compatibility to the AOSP style logging macros, provided
@@ -38,7 +38,7 @@ following at the very beginning of the file.
     //#define LOG_NDEBUG 0
     #define LOG_TAG "your_log_tag"
 
-Further below add the following additional include header
+Further below add the following include header
 
     #include <log/log.h>
 
