@@ -9,6 +9,12 @@ set -x
 
 TARGET_TEMP_DIR=/data/local/tmp/
 
+ADB="adb"
+if [ "$SERIAL" != "" ]; then
+	ADB="adb -s $SERIAL"
+fi
+
+
 binary=$1
 shift
 
@@ -17,11 +23,11 @@ if [ ! -x "$binary" ]; then
     exit 1
 fi
 
-adb push $binary ${TARGET_TEMP_DIR}/prog
-pid=$(adb shell ${TARGET_TEMP_DIR}/prog $@)
+$ADB push $binary ${TARGET_TEMP_DIR}/prog
+pid=$($ADB shell ${TARGET_TEMP_DIR}/prog $@)
 exit_code=$?
 
 echo pid = $pid
 echo exit_code = $exit_code
 
-adb logcat -d --pid $pid | sed '/beginning of main/d' | cut -c 32-
+$ADB logcat -d --pid $pid | sed '/beginning of main/d' | cut -c 32-

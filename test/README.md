@@ -37,3 +37,12 @@ Then you can execute the commands to build and run the tests:
 
 If you see the message `All tests successful!` on the console,
 all tests were successful.
+
+
+# Multiple android devices
+
+If you attached multiple android devices to your machine, you can use the
+environment variable `SERIAL` to select a specific device for the tests.
+Example:
+
+    $ SERIAL=emulator-5554 make test

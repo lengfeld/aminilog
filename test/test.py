@@ -9,6 +9,7 @@
 # The first argument is the path to the binary, the other arguments are passed
 # to the binary on execution.
 
+import os
 import sys
 from os.path import join
 from subprocess import Popen, PIPE, DEVNULL
@@ -17,9 +18,17 @@ from subprocess import Popen, PIPE, DEVNULL
 TARGET_TEMP_DIR = "/data/local/tmp/"
 
 
+def adb(args, stdout=None, stderr=None):
+    cmd = ["adb"]
+    serial = os.environ.get("SERIAL", "")
+    if serial != "":
+        cmd += ["-s", serial]
+    cmd += args
+    return Popen(cmd, shell=False, stdout=stdout, stderr=stderr)
+
+
 def get_logcat_from_pid(pid):
-    p = Popen(["adb", "logcat", "-v", "tag", "-d", "--pid", str(pid)],
-              shell=False, stdout=PIPE)
+    p = adb(["logcat", "-v", "tag", "-d", "--pid", str(pid)], stdout=PIPE)
     stdout, _ = p.communicate()
     if p.returncode != 0:
         raise Exception("Cannot execute logcat")
@@ -31,15 +40,14 @@ def get_logcat_from_pid(pid):
 
 def run(binary, args):
     prog_on_device = join(TARGET_TEMP_DIR, "prog")
-    p = Popen(["adb", "push", binary, prog_on_device], shell=False)
+    p = adb(["push", binary, prog_on_device])
     x = p.communicate()
     if p.returncode != 0:
         raise Exception("Cannot push binary to device")
 
     # For now we ignore the output of stderr. It actually contains the abort
     # condition for the fatal macro.
-    p = Popen(["adb", "shell", prog_on_device] + args,
-              stdout=PIPE, stderr=DEVNULL)
+    p = adb(["shell", prog_on_device] + args, stdout=PIPE, stderr=DEVNULL)
 
     stdout, _ = p.communicate()
 
