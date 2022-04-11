@@ -30,40 +30,75 @@ extern "C" {
 
 #define aminilog_vprint_log(prio, cond, tag, ...) __android_log_vprint(prio, tag, __VA_ARGS__)
 
-
-#ifndef ALOG
-#define ALOG(priority, tag, ...) (aminilog_print_log(priority, tag, __VA_ARGS__))
-#endif
-
-
-#if LOG_NDEBUG
 // Do not fully strip the log statement via the preprocessor from the code, to
 // still see compile errors and warnings.
-#define ALOGV(...)                                     \
+#define __FAKE_USE_VA_ARGS(...) \
   do {                                                 \
     if (false) {                                       \
       ALOG(ANDROID_LOG_VERBOSE, LOG_TAG, __VA_ARGS__); \
     }                                                  \
   } while (false)
+
+
+#ifndef ALOG
+#define ALOG(priority, tag, ...) (aminilog_print_log(priority, tag, __VA_ARGS__))
+#endif
+
+#define __ALOG_IF(cond, prio, tag, ...) \
+  do {                                                 \
+    if (__builtin_expect((cond) != 0, 0)) {            \
+      ALOG(prio, tag, __VA_ARGS__); \
+    } else {                                           \
+      __FAKE_USE_VA_ARGS(__VA_ARGS__);                 \
+    }                                                  \
+  } while (false)
+
+
+#if LOG_NDEBUG
+#define ALOGV(...)  __FAKE_USE_VA_ARGS(__VA_ARGS__)
+#define ALOGV_IF(cond, ...)  __FAKE_USE_VA_ARGS(__VA_ARGS__)
 #else
+
 #define ALOGV(...) ALOG(ANDROID_LOG_VERBOSE, LOG_TAG, __VA_ARGS__)
+
+#ifndef ALOGV_IF
+#define ALOGV_IF(cond, ...) __ALOG_IF(cond, ANDROID_LOG_VERBOSE, LOG_TAG, __VA_ARGS__)
+#endif
+
 #endif
 
 #ifndef ALOGD
 #define ALOGD(...) ALOG(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 #endif
 
+#ifndef ALOGD_IF
+#define ALOGD_IF(cond, ...) __ALOG_IF(cond, ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
+#endif
+
 #ifndef ALOGI
 #define ALOGI(...) ALOG(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+#endif
+
+#ifndef ALOGI_IF
+#define ALOGI_IF(cond, ...) __ALOG_IF(cond, ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
 #endif
 
 #ifndef ALOGW
 #define ALOGW(...) ALOG(ANDROID_LOG_WARN, LOG_TAG, __VA_ARGS__)
 #endif
 
+#ifndef ALOGW_IF
+#define ALOGW_IF(cond, ...) __ALOG_IF(cond, ANDROID_LOG_WARN, LOG_TAG, __VA_ARGS__)
+#endif
+
 #ifndef ALOGE
 #define ALOGE(...) ALOG(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 #endif
+
+#ifndef ALOGE_IF
+#define ALOGE_IF(cond, ...) __ALOG_IF(cond, ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+#endif
+
 
 #ifndef ALOGF
 #define ALOGF(...) ALOG(ANDROID_LOG_FATAL, LOG_TAG, __VA_ARGS__)

@@ -70,6 +70,9 @@ D/test_cpp: debug
 I/test_cpp: info
 W/test_cpp: warning
 E/test_cpp: error
+D/test_cpp: debug if true
+I/test_cpp: info if true
+E/test_cpp: error if true
 D/test_c  : debug
 I/test_c  : info
 W/test_c  : warning
@@ -80,6 +83,7 @@ W/prog    : warning
 E/prog    : error
 D/test_alogv: debug
 V/test_alogv: verbose
+V/test_alogv: verbose if true
 """),
 
     ("Testing LOG_ALWAYS_FATAL macro", ["fatal"], 134,

@@ -9,4 +9,6 @@
 void test_alogv() {
     ALOGD("debug");
     ALOGV("verbose"); // Is printed, because of LOG_NDEBUG=1
+    ALOGV_IF(true, "verbose if true");  // Is printed, because of LOG_NDEBUG=1
+    ALOGV_IF(false, "verbose if false"); // Is not printed because condition is false
 }
