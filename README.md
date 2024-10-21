@@ -83,6 +83,15 @@ Contributions, e.g. to extend the available macros, are welcome. Open a
 merge/pull request or send a patch. Just use my email address from the commits.
 
 
+# Video introduction
+
+At the [AOSP and AAOS meetup](https://aospandaaos.github.io/) I did a ten
+minute lighting talk about aminilog. It was at the
+[The AOSP and AAOS 2024 January meetup](https://www.meetup.com/the-aosp-and-aaos-meetup/events/297043889/).
+You can check out the recording on youtube at
+[video aminilog – AOSP styled logging macros for NDK projects](https://www.youtube.com/watch?v=EZbpJKLEmUE).
+
+
 # Header setup and usage
 
 Just some random information. No interesting for users!
