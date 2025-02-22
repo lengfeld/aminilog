@@ -20,6 +20,12 @@ For now the library is a header only library. Just clone, unpack or copy the
 files from the git repository into your app's project, e.g. into a folder called
 `external/aminilog`.
 
+If you don't want to do it manually, you can use one of my other projects. See
+[subpatch](https://subpatch.net). The command to integrate the aminilog sources
+into your repository would be
+
+    $ subpatch add https://github.com/lengfeld/aminilog.git external/aminilog
+
 Then add the library to your cmake build, by adding the line
 
     add_subdirectory(../../external/aminilog aminilog)
