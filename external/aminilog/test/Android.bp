@@ -1,0 +1,23 @@
+// SPDX-License-Identifier: MIT
+// SPDX-FileCopyrightText: (c) 2022 Stefan Lengfeld
+
+cc_binary {
+    name: "aminilogtest",
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wextra",
+    ],
+    srcs: [
+        "src/main.cpp",
+        "src/test_c.c",
+        "src/test_cpp.cpp",
+        "src/test_fatal.cpp",
+        "src/test_fatal_if.cpp",
+        "src/test_fatal_if_with_message.cpp",
+        "src/test_without_logtag.cpp",
+        "src/test_alogv.cpp",
+    ],
+    shared_libs: ["liblog"],
+    stl: "none",
+}

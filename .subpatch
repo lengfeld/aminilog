@@ -1,0 +1,2 @@
+[subpatch "external/aminilog"]
+	url = https://github.com/lengfeld/aminilog.git

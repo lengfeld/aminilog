@@ -1,0 +1,45 @@
+plugins {
+    id 'com.android.application'
+}
+
+clean {
+    delete "${projectDir.absolutePath}/.cxx"
+}
+
+android {
+    compileSdk 31
+
+    defaultConfig {
+        applicationId "com.example.aminilog"
+        minSdk 27
+        targetSdk 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags ''
+            }
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    externalNativeBuild {
+        cmake {
+            path file('../../CMakeLists.txt')
+            version '3.10.2'
+        }
+    }
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+        }
+    }
+}
+
+dependencies {
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+}
